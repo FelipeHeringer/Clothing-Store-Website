@@ -1,0 +1,14 @@
+services:
+  mysql:
+    image: mysql:8.4
+    restart: always
+    container_name: mysql-vertice
+    environment: 
+        - MYSQL_ROOT_PASSWORD=PoiLkjmnb25@
+    ports:
+        - '3306:3306'
+    networks:
+        - vertice-network
+networks:
+    vertice-network:
+        driver: bridge
