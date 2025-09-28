@@ -1,0 +1,136 @@
+
+CREATE TABLE IF NOT EXISTS `itens_compra` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `id_compra` INTEGER NOT NULL,
+    `id_produto_variacao` INTEGER NOT NULL,
+    `quantidade` INTEGER NOT NULL,
+    `valor_total` DECIMAL(6,2) NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `usuarios` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `id_favoritos` INTEGER NOT NULL,
+    `username` VARCHAR(150) NOT NULL UNIQUE,
+    `email` VARCHAR(255) NOT NULL UNIQUE,
+    `senha_hash` VARCHAR(255) NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `enderecos` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `id_cep` INTEGER NOT NULL,
+    `id_cidade` INTEGER NOT NULL,
+    `id_estado` INTEGER NOT NULL,
+    `nome_rua` VARCHAR(255) NOT NULL,
+    `numero` INTEGER NOT NULL,
+    `complemento` VARCHAR(255),
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `produtos` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `id_colecao` INTEGER NOT NULL,
+    `id_categoria` INTEGER NOT NULL,
+    `nome` VARCHAR(150) NOT NULL,
+    `descricao` VARCHAR(255) NOT NULL,
+    `valor` DECIMAL(4,2) NOT NULL,
+    `avaliacao` TINYINT NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `metodos_pagamento` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `tipo` VARCHAR(255) NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `colecoes` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `nome` VARCHAR(150) NOT NULL,
+    `descricao` VARCHAR(255) NOT NULL,
+    `lancamento` DATE NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `compras` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `id_pessoa` INTEGER NOT NULL,
+    `id_mtd_pagamento` INTEGER NOT NULL,
+    `valor_compra` DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `categorias` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `nome` VARCHAR(255) NOT NULL UNIQUE,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `CEP` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `numero_cep` INTEGER NOT NULL UNIQUE,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `cidades` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `nome_cidade` VARCHAR(255) NOT NULL UNIQUE,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `estados` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `nome_estado` VARCHAR(255) NOT NULL UNIQUE,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `produtos_variacoes` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `id_produto` INTEGER NOT NULL,
+    `id_cor` INTEGER NOT NULL,
+    `id_tamanho` INTEGER NOT NULL,
+    `codigo_sku` VARCHAR(50) NOT NULL UNIQUE,
+    `quantidade` INTEGER NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `tamanhos` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `tamanho` CHAR(2) NOT NULL UNIQUE,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `cores` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `cor` VARCHAR(50) NOT NULL UNIQUE,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `enderecos_pessoas` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `id_endereco` INTEGER NOT NULL,
+    `id_pessoa` INTEGER NOT NULL,
+    `descricao` VARCHAR(255) NOT NULL DEFAULT 'Casa',
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `pessoas_fisicas` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    `id_usuario` INTEGER NOT NULL,
+    `nome_pessoa` VARCHAR(150) NOT NULL,
+    `data_nascimento` DATE NOT NULL,
+    `CPF` VARCHAR(11) NOT NULL,
+    `telefone` VARCHAR(11) NOT NULL,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `favoritos` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `estoque_deposito` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
+    PRIMARY KEY(`id`)
+);
