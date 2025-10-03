@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `itens_compra` (
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
     `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    `id_favoritos` INTEGER NOT NULL,
+    `id_favoritos` INTEGER,
     `username` VARCHAR(150) NOT NULL UNIQUE,
     `email` VARCHAR(255) NOT NULL UNIQUE,
     `senha_hash` VARCHAR(255) NOT NULL,
