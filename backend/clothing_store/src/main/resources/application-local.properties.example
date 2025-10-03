@@ -1,0 +1,14 @@
+# Database Configuration
+
+spring.datasource.username=your_database_user
+spring.datasource.password=your_database_password
+
+# Jwt Configuration
+
+api.secret.key=your_jwt_secret_key
+jwt.access-token-expiration=access_expiration_time_in_miliseconds
+jwt.refresh-token-expiration=refresh_expiration_time_in_miliseconds
+
+# Server Configuration
+
+server.port=your_server_port
