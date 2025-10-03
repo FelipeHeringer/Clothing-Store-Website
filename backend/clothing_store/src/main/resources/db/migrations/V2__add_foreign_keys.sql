@@ -1,7 +1,7 @@
 -- COMPRAS references USUARIOS and METODOS_PAGAMENTO
 ALTER TABLE compras
-ADD CONSTRAINT fk_compras_usuario
-FOREIGN KEY (id_usuario) REFERENCES usuarios(id);
+ADD CONSTRAINT fk_compras_pessoa
+FOREIGN KEY (id_pessoa) REFERENCES pessoas_fisicas(id);
 
 ALTER TABLE compras
 ADD CONSTRAINT fk_compras_metodo
@@ -60,7 +60,7 @@ FOREIGN KEY (id_favoritos) REFERENCES favoritos(id);
 -- ENDERECOS references CEP, CIDADES, ESTADOS
 ALTER TABLE enderecos
 ADD CONSTRAINT fk_enderecos_cep
-FOREIGN KEY (id_cep) REFERENCES cep(id);
+FOREIGN KEY (id_cep) REFERENCES CEP(id);
 
 ALTER TABLE enderecos
 ADD CONSTRAINT fk_enderecos_cidade
