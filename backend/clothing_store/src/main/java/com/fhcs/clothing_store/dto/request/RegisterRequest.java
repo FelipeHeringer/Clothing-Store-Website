@@ -19,7 +19,7 @@ public class RegisterRequest {
     @Size(max = 255, message = "Email muito longo")
     private String email;
 
-    @NotBlank(message = "")
+    @NotBlank(message = "A senha é obrigatória")
     @Size(min = 8, max = 128, message = "A senha deve possuir pelo menos 8 caracteres")
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+{}\\[\\]:;'\"|,.<>/?~`-]).+$", 
                 message = "A senha deve conter pelo menos uma letra maiúscula,um digito e um caracter especial")
