@@ -2,15 +2,21 @@ package com.fhcs.clothing_store.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fhcs.clothing_store.dto.request.AddressRequest;
 import com.fhcs.clothing_store.dto.request.PrivateIndividualRequest;
+import com.fhcs.clothing_store.dto.response.AddressDto;
+import com.fhcs.clothing_store.dto.AddressPatchDto;
 import com.fhcs.clothing_store.dto.PrivateIndividualPatchDto;
 import com.fhcs.clothing_store.entity.PrivateIndividual;
 import com.fhcs.clothing_store.entity.User;
 import com.fhcs.clothing_store.entity.address.Address;
+import com.fhcs.clothing_store.entity.address.IndividualAddress;
+import com.fhcs.clothing_store.exception.AddressNotFoundException;
 import com.fhcs.clothing_store.repository.PrivateIndividualRepository;
 import com.fhcs.clothing_store.repository.UserRepository;
 import com.fhcs.clothing_store.util.JsonPatchUtil;
@@ -85,7 +91,13 @@ public class PrivateIndividualService {
         }
     }
 
-    private void applyChangesToIndividual(PrivateIndividual privateIndividual, PrivateIndividualPatchDto patchedIndividual) {
+    public void deletePrivateIndividual(String accessToken) {
+        PrivateIndividual privateIndividual = getPrivateIndividualByToken(accessToken);
+        individualRepository.delete(privateIndividual);
+    }
+
+    private void applyChangesToIndividual(PrivateIndividual privateIndividual,
+            PrivateIndividualPatchDto patchedIndividual) {
 
         try {
             verifyPhoneNumberUniqueness(patchedIndividual.getPhoneNumber(), privateIndividual.getIndividualId());
@@ -113,4 +125,93 @@ public class PrivateIndividualService {
 
     }
 
+    public List<AddressDto> addAddressToPrivateIndividual(String accessToken, AddressRequest addressRequest) {
+
+        PrivateIndividual individual = getPrivateIndividualByToken(accessToken);
+
+        Address address = addressService.createAddress(addressRequest);
+
+        addressService.linkIndividualAndAddress(individual, address, addressRequest.getDescription());
+
+        List<IndividualAddress> individualAddresses = addressService
+                .getIndividualAddresses(individual.getIndividualId());
+
+        return mapToAddressDtoList(individualAddresses);
+    }
+
+    public List<AddressDto> getAddressesOfPrivateIndividual(String accessToken) {
+
+        PrivateIndividual individual = getPrivateIndividualByToken(accessToken);
+
+        List<IndividualAddress> individualAddress = addressService.getIndividualAddresses(individual.getIndividualId());
+
+        return mapToAddressDtoList(individualAddress);
+    }
+
+    public List<AddressDto> updateAddressOfPrivateIndividual(String accessToken, JsonPatch patch, Integer addressId) {
+
+        try {
+            PrivateIndividual individual = getPrivateIndividualByToken(accessToken);
+
+            List<IndividualAddress> individualAddresses = addressService
+                    .getIndividualAddresses(individual.getIndividualId());
+
+            IndividualAddress individualAddress = getIndividualAddressByIdFromIndivudalAddresses(individualAddresses,
+                    addressId);
+
+            AddressPatchDto addressPatched = jsonPatchUtil.extractPatchedFields(patch, AddressPatchDto.class);
+
+            if (addressPatched.getDescription() != null) {
+                addressService.applyChangesToIndividualAddress(individualAddress, addressPatched);
+            }
+
+            addressService.updateAddressInformation(individualAddress.getAddress(),
+                    addressPatched);
+
+            return mapToAddressDtoList(individualAddresses);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao atualizar o endereço do indivíduo: " + e.getMessage());
+        }
+
+    }
+
+    public List<AddressDto> deleteAddressOfPrivateIndividual(String accessToken, Integer addressId) {
+
+        try {
+            PrivateIndividual individual = getPrivateIndividualByToken(accessToken);
+
+            List<IndividualAddress> individualAddresses = addressService
+                    .getIndividualAddresses(individual.getIndividualId());
+
+            IndividualAddress individualAddress = getIndividualAddressByIdFromIndivudalAddresses(individualAddresses,
+                    addressId);
+
+            addressService.deleteIndividualAddress(individualAddress);
+
+            List<IndividualAddress> newIndividualAddresses = addressService
+                    .getIndividualAddresses(individual.getIndividualId());
+
+            return mapToAddressDtoList(newIndividualAddresses);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao deletar o endereço do indivíduo: " + e.getMessage());
+        }
+    }
+
+    private IndividualAddress getIndividualAddressByIdFromIndivudalAddresses(
+            List<IndividualAddress> individualAddresses,
+            Integer addressId) {
+
+        return individualAddresses.stream()
+                .filter(individualAddress -> individualAddress.getAddress().getAddressId() == addressId)
+                .findFirst()
+                .orElseThrow(() -> new AddressNotFoundException("Endereço não encontrado para o indivíduo fornecido."));
+
+    }
+
+    private List<AddressDto> mapToAddressDtoList(List<IndividualAddress> individualAddresses) {
+
+        return individualAddresses.stream().map(individualAddress -> AddressDto
+                .fromAddress(individualAddress.getAddress(), individualAddress.getDescription())).toList();
+    }
 }
