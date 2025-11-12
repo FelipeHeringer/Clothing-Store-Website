@@ -3,6 +3,7 @@ package com.fhcs.clothing_store.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,6 +55,21 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(UserResponse.error("Erro ao atualizar informações do usuário: " + e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/me")
+    public ResponseEntity<UserResponse> deleteUser(@RequestHeader("Authorization") String token) {
+
+        try {
+            String accessToken = token.substring(7);
+            userService.deleteUser(accessToken);
+
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(UserResponse.messageOnly("Usuário deletado com sucesso!", true));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(UserResponse.error("Erro ao deletar usuário: " + e.getMessage()));
         }
     }
 }
