@@ -31,4 +31,12 @@ public class PrivateIndividualResponse {
                 .message(message)
                 .build();
     }
+
+    public static PrivateIndividualResponse messageOnly (String message, boolean success) {
+
+        return PrivateIndividualResponse.builder()
+                .success(success)
+                .message(message)
+                .build();
+    }
 }

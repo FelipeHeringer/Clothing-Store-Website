@@ -29,4 +29,12 @@ public class UserResponse {
                 .message(message)
                 .build();
     }
+
+    public static UserResponse messageOnly(String message, boolean success) {
+
+        return UserResponse.builder()
+                .success(success)
+                .message(message)
+                .build();
+    }
 }
