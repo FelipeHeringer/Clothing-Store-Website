@@ -81,6 +81,11 @@ public class UserService {
         }
     }
 
+    public void deleteUser(String accessToken) throws Exception {
+        User user = getUserInformation(accessToken);
+        userRepository.delete(user);
+    }
+
     private void applyChangesToUser(User user, UserPatchDto userPatched) {
         try {
             verifyUsernameAndEmailUniqueness(user, userPatched);
