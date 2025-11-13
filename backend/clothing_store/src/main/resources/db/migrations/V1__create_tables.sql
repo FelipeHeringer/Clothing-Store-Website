@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `CEP` (
 
 CREATE TABLE IF NOT EXISTS `cidades` (
     `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    `nome_cidade` VARCHAR(255) NOT NULL UNIQUE,
+    `nome_cidade` VARCHAR(255) NOT NULL,
     PRIMARY KEY(`id`)
 );
 
@@ -120,8 +120,8 @@ CREATE TABLE IF NOT EXISTS `pessoas_fisicas` (
     `id_usuario` INTEGER NOT NULL,
     `nome_pessoa` VARCHAR(150) NOT NULL,
     `data_nascimento` DATE NOT NULL,
-    `CPF` VARCHAR(11) NOT NULL,
-    `telefone` VARCHAR(11) NOT NULL,
+    `CPF` VARCHAR(11) NOT NULL UNIQUE,
+    `telefone` VARCHAR(11) NOT NULL UNIQUE,
     PRIMARY KEY(`id`)
 );
 
