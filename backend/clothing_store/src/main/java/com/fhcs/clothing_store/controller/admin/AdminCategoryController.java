@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fhcs.clothing_store.dto.request.product.CategoryRequest;
 import com.fhcs.clothing_store.dto.response.product.CategoryResponse;
 import com.fhcs.clothing_store.entity.product.Category;
-import com.fhcs.clothing_store.service.admin.AdminCategoryServcice;
+import com.fhcs.clothing_store.service.admin.AdminCategoryService;
 import com.github.fge.jsonpatch.JsonPatch;
 
 @RestController
@@ -27,7 +27,7 @@ import com.github.fge.jsonpatch.JsonPatch;
 public class AdminCategoryController {
 
     @Autowired
-    private AdminCategoryServcice adminCategoryService;
+    private AdminCategoryService adminCategoryService;
 
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @PostMapping
