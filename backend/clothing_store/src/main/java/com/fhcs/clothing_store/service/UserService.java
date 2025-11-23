@@ -7,6 +7,8 @@ import com.fhcs.clothing_store.dto.UserPatchDto;
 import com.fhcs.clothing_store.dto.request.RegisterRequest;
 import com.fhcs.clothing_store.entity.User;
 import com.fhcs.clothing_store.repository.UserRepository;
+import com.fhcs.clothing_store.entity.Role;
+import com.fhcs.clothing_store.repository.RoleRepository;
 import com.fhcs.clothing_store.util.JsonPatchUtil;
 import com.fhcs.clothing_store.util.JwtTokenUtil;
 import com.fhcs.clothing_store.util.PasswordUtil;
@@ -19,6 +21,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -37,6 +42,10 @@ public class UserService {
         user.setEmail(request.getEmail());
         String passwordHash = passwordUtil.encodePassword(request.getPassword());
         user.setPasswordHash(passwordHash);
+
+        Role userRole = roleRepository.findByRoleName("ROLE_USER");
+
+        user.getRoles().add(userRole);
 
         return userRepository.save(user);
     }
