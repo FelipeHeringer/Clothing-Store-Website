@@ -8,6 +8,7 @@ import com.fhcs.clothing_store.dto.request.RegisterRequest;
 import com.fhcs.clothing_store.dto.response.AuthResponse;
 import com.fhcs.clothing_store.entity.User;
 import com.fhcs.clothing_store.repository.UserRepository;
+import com.fhcs.clothing_store.security.UserDetailsImpl;
 import com.fhcs.clothing_store.util.JwtTokenUtil;
 import com.fhcs.clothing_store.util.PasswordUtil;
 
@@ -38,8 +39,10 @@ public class AuthService {
 
         User user = userService.createUser(registerRequest);
 
-        String accessToken = jwtTokenUtil.generateAccessToken(user);
-        String refreshToken = jwtTokenUtil.generateRefreshToken(user);
+        UserDetailsImpl userDetails = new UserDetailsImpl(user);
+
+        String accessToken = jwtTokenUtil.generateAccessToken(userDetails);
+        String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
         Long accessTokenExpiresIn = jwtTokenUtil.getAccessTokenExpiration(accessToken);
 
         return AuthResponse.success(accessToken, refreshToken, accessTokenExpiresIn, user);
@@ -50,8 +53,10 @@ public class AuthService {
         try {
             User user = authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
 
-            String accessToken = jwtTokenUtil.generateAccessToken(user);
-            String refreshToken = jwtTokenUtil.generateRefreshToken(user);
+            UserDetailsImpl userDetails = new UserDetailsImpl(user);
+
+            String accessToken = jwtTokenUtil.generateAccessToken(userDetails);
+            String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
             Long accessTokenExpiresIn = jwtTokenUtil.getAccessTokenExpiration(accessToken);
 
             return AuthResponse.success(accessToken, refreshToken, accessTokenExpiresIn, user);
