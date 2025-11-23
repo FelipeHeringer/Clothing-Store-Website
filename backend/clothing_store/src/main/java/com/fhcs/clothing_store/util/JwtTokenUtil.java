@@ -1,7 +1,11 @@
 package com.fhcs.clothing_store.util;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 
@@ -9,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.fhcs.clothing_store.entity.User;
+import com.fhcs.clothing_store.security.UserDetailsImpl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -28,10 +32,19 @@ public class JwtTokenUtil {
     @Value("${jwt.refresh-token-expiration}")
     private long refreshTokenExpiration;
 
-    public String generateAccessToken(User user) {
+    public String generateAccessToken(UserDetailsImpl userDetails) {
+
+        Map<String, Object> claims = new HashMap<>();
+
+        List<String> roles = userDetails.getUser().getRoles().stream()
+                .map(role -> role.getRoleName())
+                .collect(Collectors.toList());
+
+        claims.put("roles", roles);
 
         String token = Jwts.builder()
-                .subject(user.getUsername())
+                .claims(claims)
+                .subject(userDetails.getUsername())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + accessTokenExpiration))
                 .signWith(getJwtSecretKey(secretKey))
@@ -40,10 +53,18 @@ public class JwtTokenUtil {
         return token;
     }
 
-    public String generateRefreshToken(User user) {
+    public String generateRefreshToken(UserDetailsImpl userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+
+        List<String> roles = userDetails.getUser().getRoles().stream()
+                .map(role -> role.getRoleName())
+                .collect(Collectors.toList());
+
+        claims.put("roles", roles);
 
         String token = Jwts.builder()
-                .subject(user.getUsername())
+                .claims(claims)
+                .subject(userDetails.getUsername())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + refreshTokenExpiration))
                 .signWith(getJwtSecretKey(secretKey))
