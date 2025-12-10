@@ -1,6 +1,7 @@
 import { authService } from "@/services/authService";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createContext } from "react";
+import { tokenUtil } from "@/utils/tokenUtil";
 
 type User = {
     userId: string;
@@ -24,6 +25,7 @@ type AuthContextData = {
     register(userData: RegisterData): Promise<{ success: boolean, error?: string }>;
     login(credentials: LoginCredentials): Promise<{ success: boolean, error?: string }>;
     isAuthenticated: boolean;
+    loading: boolean;
 };
 
 interface AuthProviderProps {
@@ -34,6 +36,36 @@ const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const initializeAuth = async () => {
+            try {
+                const accessToken = tokenUtil.getAccessToken()
+                const storedUser = localStorage.getItem('user');
+
+                if (accessToken && storedUser) {
+                    const payload = tokenUtil.decodeToken()
+                    if (payload && payload.exp * 1000 > Date.now()) {
+                        setUser(JSON.parse(storedUser));
+                    } else {
+                        localStorage.removeItem('accessToken');
+                        localStorage.removeItem('refreshToken');
+                        localStorage.removeItem('user');
+                    }
+                }
+            } catch (error) {
+                console.error('Error initializing auth:', error);
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('refreshToken');
+                localStorage.removeItem('user');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        initializeAuth();
+    }, []);
 
     const register = async (userData: RegisterData): Promise<{ success: boolean, error?: string }> => {
         try {
@@ -42,6 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             if (response.success && response.accessToken && response.refreshToken && response.safeUser) {
                 localStorage.setItem('accessToken', response.accessToken);
                 localStorage.setItem('refreshToken', response.refreshToken);
+                localStorage.setItem('user', JSON.stringify(response.safeUser));
                 setUser(response.safeUser)
 
                 return { success: true }
@@ -63,9 +96,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
             if (response.success && response.accessToken && response.refreshToken && response.safeUser) {
                 localStorage.setItem('accessToken', response.accessToken);
                 localStorage.setItem('refreshToken', response.refreshToken);
+                localStorage.setItem('user', JSON.stringify(response.safeUser));
                 setUser(response.safeUser)
 
-                console.log(response)
                 return { success: true }
             } else {
                 throw new Error(response.message || 'Falha ao efetuar login.');
@@ -83,6 +116,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         register,
         login,
         isAuthenticated: !!user,
+        loading,
     };
     return (
         <AuthContext.Provider value={value}>
