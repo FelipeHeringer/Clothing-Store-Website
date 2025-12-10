@@ -14,7 +14,7 @@ export function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () => void 
     });
     const [error, setError] = useState('');
 
-    const { login, isAuthenticated } = useAuth();
+    const { login } = useAuth();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFormData(prev => ({
@@ -31,14 +31,6 @@ export function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () => void 
         if (!result.success) {
             setError(result.error || 'Erro ao efetuar login.');
         }
-    }
-
-    if(isAuthenticated) {
-        return (
-            <div className="flex h-screen items-center justify-center">
-                <h1>Usuário autenticado</h1>
-            </div>
-        )
     }
 
     return (
