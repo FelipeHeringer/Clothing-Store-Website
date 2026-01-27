@@ -1,6 +1,8 @@
 package com.fhcs.clothing_store.controller;
 
 import com.fhcs.clothing_store.dto.request.LoginRequest;
+import com.fhcs.clothing_store.dto.request.LogoutRequest;
+import com.fhcs.clothing_store.dto.request.RefreshTokenRequest;
 import com.fhcs.clothing_store.dto.request.RegisterRequest;
 import com.fhcs.clothing_store.dto.response.AuthResponse;
 import com.fhcs.clothing_store.service.AuthService;
@@ -41,5 +43,20 @@ public class AuthController {
         AuthResponse response = authService.login(loginRequest);
 
         return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthResponse> refresh(@Valid @RequestBody RefreshTokenRequest request) {
+
+        String refreshToken = request.getRefreshToken();
+
+        AuthResponse response = authService.refresh(refreshToken);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/logout")
+    public void logout(@Valid @RequestBody LogoutRequest request) {
+        authService.logout(request.getRefreshToken());
     }
 }
