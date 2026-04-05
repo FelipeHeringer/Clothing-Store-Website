@@ -65,6 +65,7 @@ public class AuthService {
 
             String accessToken = jwtTokenUtil.generateAccessToken(userDetails);
             String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
+            refreshTokenService.createRefreshToken(user, refreshToken);
             Long accessTokenExpiresIn = jwtTokenUtil.getAccessTokenExpiration(accessToken);
 
             return AuthResponse.success(accessToken, refreshToken, accessTokenExpiresIn, user);
