@@ -1,6 +1,9 @@
 package com.fhcs.clothing_store.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,6 +55,11 @@ public class AdminProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ProductResponse.error("Produto não encontrado: " + e.getMessage()));
         }
+    }
+
+    @GetMapping
+    public PagedModel<Product> getAllProducts(@PageableDefault Pageable pageable) {
+        return adminProductService.getAllProducts(pageable);
     }
 
     @PatchMapping("/{productId}")

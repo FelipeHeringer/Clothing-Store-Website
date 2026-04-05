@@ -1,6 +1,8 @@
 package com.fhcs.clothing_store.service.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.stereotype.Service;
 
 import com.fhcs.clothing_store.dto.ProductPatchDto;
@@ -56,6 +58,10 @@ public class AdminProductService {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    public PagedModel<Product> getAllProducts(Pageable pageable) {
+        return new PagedModel<>(productRepository.findAll(pageable));
     }
 
     public Product updateProduct(Integer productId, JsonPatch patch) {
