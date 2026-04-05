@@ -42,7 +42,4 @@ public class ProductVariation {
 
     @Column(name = "codigo_sku")
     private String skuCode;
-
-    @Column(name = "quantidade")
-    private Integer quantity;
 }
