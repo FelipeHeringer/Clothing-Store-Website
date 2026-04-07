@@ -14,5 +14,8 @@ public class ProductVariationRequest {
 
     private String skuCode;
 
+    @NotNull(message = "O estoque é obrigatorio")
+    private Integer stock;
+
     // private String imageUrl;
 }

@@ -22,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductVariation {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -42,4 +42,11 @@ public class ProductVariation {
 
     @Column(name = "codigo_sku")
     private String skuCode;
+
+    @Column(name = "estoque", nullable = false)
+    private Integer stock = 0;
+
+    public boolean hasStock(int requested) {
+        return this.stock >= requested;
+    }
 }

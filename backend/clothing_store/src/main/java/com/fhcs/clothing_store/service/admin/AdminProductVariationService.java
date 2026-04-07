@@ -40,6 +40,7 @@ public class AdminProductVariationService {
         productVariation.setSize(size);
         productVariation.setProduct(product);
         productVariation.setSkuCode(request.getSkuCode());
+        productVariation.setStock(request.getStock());
 
         return productVariationRepository.save(productVariation);
     }
