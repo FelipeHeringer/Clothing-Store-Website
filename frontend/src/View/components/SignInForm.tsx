@@ -1,23 +1,20 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/View/contexts/AuthContext";
 
-interface RegisterData {
-    username: string;
+interface LoginData {
     email: string;
     password: string;
 }
-
-export function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () => void }) {
-    const [formData, setFormData] = useState<RegisterData>({
-        username: '',
+export function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () => void }) {
+    const [formData, setFormData] = useState<LoginData>({
         email: '',
         password: ''
     });
     const [error, setError] = useState('');
 
-    const { register } = useAuth();
+    const { login } = useAuth();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setFormData(prev => ({
@@ -25,12 +22,11 @@ export function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () => void 
             [e.target.name]: e.target.value
         }))
     };
-
     const handleSubmit = async (e: React.FormEvent): Promise<void> => {
         e.preventDefault();
         setError('');
 
-        const result = await register(formData);
+        const result = await login(formData);
 
         if (!result.success) {
             setError(result.error || 'Erro ao efetuar login.');
@@ -50,16 +46,8 @@ export function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () => void 
                         </div>
                     )}
                     <form className="flex flex-col gap-4 bg-transparent p-6  shadow-md mt-4 text-center">
-                        <h1 className="text-black font-['Alexandria'] font-semibold text-[32px]">Cadastro</h1>
-                        <p className="text-black font-['Alexandria'] font-light text-[22px]">Insira seu email e senha para criar uma conta:</p>
-                        <Input
-                            type="username"
-                            name="username"
-                            value={formData.username}
-                            placeholder="Username"
-                            required
-                            onChange={handleChange}
-                            className="w-[571] h-[58] rounded-none border-solid border-1 border-black" />
+                        <h1 className="text-black font-['Alexandria'] font-semibold text-[32px]">Login</h1>
+                        <p className="text-black font-['Alexandria'] font-light text-[22px]">Insira seu email e senha para entrar:</p>
                         <Input
                             type="email"
                             name="email"
@@ -76,17 +64,17 @@ export function SignUpForm({ onSwitchToSignIn }: { onSwitchToSignIn: () => void 
                             required
                             onChange={handleChange}
                             className="w-[571] h-[58] rounded-none border-solid border-1 border-black" />
-
                         <Button
                             type="button"
                             variant="link"
                             onClick={handleSubmit}
                             className="bg-black text-white rounded-none opacity-100 w-[571] h-[58]">
-                            Cadastrar
+                            Login
                         </Button>
-                        <p className="text-[#343434] opacity-70 text-[18px] font-['Alexandria']">Já tem uma conta?
-                            <button className="text-black font-light text-[18px] font-['Alexandria'] underline cursor-pointer" onClick={onSwitchToSignIn}>Entrar</button>
+                        <p className="text-[#343434] opacity-70 text-[18px] font-['Alexandria']">Ainda não tem uma conta?
+                            <button className="text-black font-light text-[18px] font-['Alexandria'] underline cursor-pointer" onClick={onSwitchToSignUp}>Cadastre-se</button>
                         </p>
+
                     </form>
                 </div>
             </div>

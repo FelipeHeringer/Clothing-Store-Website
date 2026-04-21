@@ -2,7 +2,7 @@ import { AccountDetails } from "@/components/AccountDetails";
 import { NavBar } from "@/components/NavBar";
 import { SignInForm } from "@/components/SignInForm";
 import { SignUpForm } from "@/components/SignUpForm";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/View/contexts/AuthContext";
 import { useState } from "react";
 
 export function AccountPage() {

@@ -2,8 +2,8 @@ import { LayoutDashboard, Package, FileText, ChevronDown, ChevronUp } from "luci
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { categoryService } from "@/services/categoryService";
-import type { Category } from "@/services/categoryService";
+import { categoryService } from "@/Model/services/categoryService";
+import type { Category } from "@/Model/services/categoryService";
 
 export function AdminSidebar() {
   const location = useLocation();

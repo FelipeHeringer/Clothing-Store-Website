@@ -1,6 +1,7 @@
-import { useAuth } from "@/contexts/AuthContext";
+import { tokenUtil } from "@/lib/tokenUtil";
+import { useAuthViewModel } from "@/ViewModel/hooks/useAuthViewModel";
 import { Navigate } from "react-router-dom";
-import { tokenUtil } from "./tokenUtil";
+
 
 interface ProtectedRouteProps {
     children: React.ReactNode;
@@ -9,7 +10,7 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children, requireAdmin = false, allowedRoles }: ProtectedRouteProps) {
-    const { isAuthenticated, loading } = useAuth();
+    const { isAuthenticated, loading } = useAuthViewModel();
 
     if (loading) {
         console.log('⏳ Waiting for auth to initialize...');

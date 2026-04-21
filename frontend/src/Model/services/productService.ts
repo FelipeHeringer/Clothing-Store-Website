@@ -1,5 +1,5 @@
 import { api } from "./api";
-import { tokenUtil } from "@/utils/tokenUtil";
+import { tokenUtil } from "@/lib/tokenUtil";
 
 export interface Product {
   productId: number;

@@ -1,4 +1,4 @@
-import { tokenUtil } from "@/utils/tokenUtil";
+import { tokenUtil } from "@/lib/tokenUtil";
 import { api } from "./api";
 
 export interface Category {

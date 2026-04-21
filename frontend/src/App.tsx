@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-import { AccountPage } from "@/pages/AccountPage";
-import { HomePage } from "@/pages/HomePage";
-import { AdminPage } from "@/pages/AdminPage";
-import { ProtectedRoute } from "./utils/ProtectedRoute";
-import { UnauthorizedPage } from "./pages/UnauthorizedPage";
+import { AccountPage } from "@/View/pages/AccountPage";
+import { HomePage } from "@/View/pages/HomePage";
+import { AdminPage } from "@/View/pages/AdminPage";
+import { UnauthorizedPage } from "./View/pages/UnauthorizedPage";
+import { ProtectedRoute } from "./View/guards/ProtectedRoute";
 
 export function App() {
 
