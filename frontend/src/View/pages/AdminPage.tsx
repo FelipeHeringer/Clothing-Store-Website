@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { AdminPanelPage } from "./AdminPanelPage";
 import { ProductPage } from "./ProductPage";
 import { OrderPage } from "./OrderPage";
-import { AdminSidebar } from "@/components/admin/AdminSidebar";
+import { AdminSidebar } from "../components/admin/AdminSidebar";
 
 export function AdminPage() {
 

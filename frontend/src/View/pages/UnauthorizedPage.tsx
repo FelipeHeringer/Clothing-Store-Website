@@ -1,5 +1,5 @@
-import { NavBar } from "@/components/NavBar";
-import { Button } from "@/components/ui/button";
+import { NavBar } from "../components/NavBar";
+import { Button } from "../components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { ShieldAlert } from "lucide-react";
 

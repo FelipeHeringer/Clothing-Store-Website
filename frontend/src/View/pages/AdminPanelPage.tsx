@@ -1,4 +1,4 @@
-import { AdminHeader } from "@/components/admin/AdminHeader"
+import { AdminHeader } from "../components/admin/AdminHeader"
 
 export function AdminPanelPage() {
     return (
