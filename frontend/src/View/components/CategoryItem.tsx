@@ -2,12 +2,13 @@ interface CategoryItemProps {
   image: string;
   label: string;
   href?: string;
+  categoryId?: number;
 }
 
-export function CategoryItem({ image, label, href = "/" }: CategoryItemProps) {
+export function CategoryItem({ image, label, href, categoryId }: CategoryItemProps) {
   return (
     <div className="relative overflow-hidden group">
-      <a href={href}>
+      <a href={`${href}?categoryId=${categoryId}`}>
         <img 
           className="w-[480px] h-[700px] block transition-transform duration-[400ms] ease-in-out group-hover:scale-105" 
           src={image} 

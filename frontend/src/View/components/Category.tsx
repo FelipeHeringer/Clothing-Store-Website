@@ -5,14 +5,14 @@ interface CategoryItemData {
     image: string;
     label: string;
     href?: string;
+    categoryId?: number;
 }
 
 interface CategoryProps {
     categories: CategoryItemData[];
-    className?: string;
 }
 
-export function Category({ categories, className = "" }: CategoryProps) {
+export function Category({ categories}: CategoryProps) {
     return (
         <>
             <style>{`
@@ -35,13 +35,14 @@ export function Category({ categories, className = "" }: CategoryProps) {
         }
       `}</style>
 
-            <div className={`whitespace-nowrap w-full flex gap-0 justify-center mt-0 mb-0 ${className}`}>
+            <div className="whitespace-nowrap w-full flex gap-0 justify-center mt-0 mb-0">
                 {categories.map((category, index) => (
                     <CategoryItem
                         key={index}
                         image={category.image}
                         label={category.label}
                         href={category.href}
+                        categoryId={category.categoryId}
                     />
                 ))}
             </div>
