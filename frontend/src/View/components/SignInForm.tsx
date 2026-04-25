@@ -35,9 +35,6 @@ export function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () => void 
 
     return (
         <>
-            <style>
-                @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600&display=swap');
-            </style>
             <div>
                 <div>
                     {error && (
@@ -45,9 +42,9 @@ export function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () => void 
                             {error}
                         </div>
                     )}
-                    <form className="flex flex-col gap-4 bg-transparent p-6  shadow-md mt-4 text-center">
-                        <h1 className="text-black font-['Alexandria'] font-semibold text-[32px]">Login</h1>
-                        <p className="text-black font-['Alexandria'] font-light text-[22px]">Insira seu email e senha para entrar:</p>
+                    <form className="flex flex-col gap-4 bg-transparent p-6  mt-4 text-center">
+                        <h1 className="text-[#343434] font-alexandria font-semibold text-3xl">LOGIN</h1>
+                        <p className="text-[#343434] font-alexandria font-light text-[22px]">Insira seu email e senha para entrar:</p>
                         <Input
                             type="email"
                             name="email"
@@ -55,7 +52,7 @@ export function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () => void 
                             placeholder="Email"
                             required
                             onChange={handleChange}
-                            className=" w-[571] h-[58] rounded-none border-solid border-1 border-black" />
+                            className=" w-[571] h-[58] rounded-none border-solid border-1 border-black shadow-md" />
                         <Input
                             type="password"
                             name="password"
@@ -71,8 +68,8 @@ export function SignInForm({ onSwitchToSignUp }: { onSwitchToSignUp: () => void 
                             className="bg-black text-white rounded-none opacity-100 w-[571] h-[58]">
                             Login
                         </Button>
-                        <p className="text-[#343434] opacity-70 text-[18px] font-['Alexandria']">Ainda não tem uma conta?
-                            <button className="text-black font-light text-[18px] font-['Alexandria'] underline cursor-pointer" onClick={onSwitchToSignUp}>Cadastre-se</button>
+                        <p className="text-[#343434] opacity-70 text-[18px] font-alexandria">Ainda não tem uma conta?
+                            <button className="text-black font-light text-[18px] font-alexandria underline cursor-pointer" onClick={onSwitchToSignUp}>Cadastre-se</button>
                         </p>
 
                     </form>
