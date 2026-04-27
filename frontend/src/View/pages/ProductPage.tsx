@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { AdminHeader } from "../components/admin/AdminHeader";
 
 export function ProductPage() {
+    const navigate = useNavigate();
 
     const handleCreateProduct = () => {
-        console.log("Create product clicked")
+        navigate("/admin/products/create");
     }
 
     return (
@@ -15,13 +17,6 @@ export function ProductPage() {
                 createButtonLabel="CADASTRAR PRODUTO"
                 onCreateClick={handleCreateProduct}
             />
-            {/* {loading ? (
-                <div className="flex items-center justify-center h-64">
-                    <div className="text-gray-500">Carregando produtos...</div>
-                </div>
-            ) : (
-                <ProductGrid products={products} />
-            )} */}
         </div>
     );
 }
