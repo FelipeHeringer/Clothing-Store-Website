@@ -19,6 +19,7 @@ export function AdminHeader({
   return (
     <div className="flex items-center justify-between mb-6">
       <div>
+        <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
           {breadcrumb.map((item, index) => (
             <span key={index}>
@@ -27,7 +28,6 @@ export function AdminHeader({
             </span>
           ))}
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
       </div>
 
       {showCreateButton && (
