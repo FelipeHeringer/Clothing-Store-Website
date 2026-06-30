@@ -26,54 +26,58 @@ export default function HomePage() {
     const router = useRouter();
 
     return (
-        <>
-            <div className="flex bg-transparent text-white flex-col">
-                <Hero />
-                <div className="flex-row w-full">
-                    <Category categories={categories} />
-                </div>
-                <section>
-                    <h2 className="font-alexandria text-[#353535] text-2xl mx-4 my-2">Novidades</h2>
+        <main className="flex flex-col bg-white text-black font-inter min-h-screen">
+            <Hero />
+            
+            <section className="w-full">
+                <Category categories={categories} />
+            </section>
+            
+            <section className="py-24 px-[3%] md:px-[4%]">
+                <h2 className="font-archivo-black text-title-mobile md:text-title uppercase tracking-tight text-black mb-12">Novidades</h2>
 
-                    {newArrivals.loading && (
-                        <div className="flex justify-center py-16">
-                            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-black" />
-                        </div>
-                    )}
+                {newArrivals.loading && (
+                    <div className="flex justify-center py-16">
+                        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-black" />
+                    </div>
+                )}
 
-                    {newArrivals.error && (
-                        <p className="text-center text-red-500 py-8">{newArrivals.error}</p>
-                    )}
+                {newArrivals.error && (
+                    <p className="text-center text-red-500 py-8">{newArrivals.error}</p>
+                )}
 
-                    {!newArrivals.loading && !newArrivals.error && newArrivals.variations.length > 0 && (
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-                            {newArrivals.variations.map(v => (
-                                <div
-                                    key={v.variationId}
-                                    className="flex flex-col gap-1"
-                                    onClick={() => router.push(`/catalog/variations/${v.variationId}`)}
-                                >
-                                    <div className="aspect-[3/4] bg-gray-100 overflow-hidden mb-3 relative">
-                                        <Button size={"icon"} variant={"ghost"}
-                                            className="absolute top-3 right-3 flex items-center justify-center" onClick={() => { }}>
-                                            <FavoriteIcon width={48} height={48} color="#C8C8C8" className="absolute top-2.5 right-2.5" />
-                                        </Button>
-                                        <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-                                            {v.skuCode}
-                                        </div>
+                {!newArrivals.loading && !newArrivals.error && newArrivals.variations.length > 0 && (
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-4 gap-y-10">
+                        {newArrivals.variations.map(v => (
+                            <div
+                                key={v.variationId}
+                                className="flex flex-col gap-3 group cursor-pointer"
+                                onClick={() => router.push(`/catalog/variations/${v.variationId}`)}
+                            >
+                                <div className="aspect-[3/4] bg-gray-100 overflow-hidden relative">
+                                    <Button size="icon" variant="ghost"
+                                        className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 hover:bg-white" onClick={(e) => { e.stopPropagation(); }}>
+                                        <FavoriteIcon width={20} height={20} color="#333" />
+                                    </Button>
+                                    <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+                                        {/* Ideally replace with an actual image component */}
+                                        {v.skuCode}
                                     </div>
-                                    <p className="font-semibold text-sm uppercase font-alexandria text-[#353535] group-hover:underline">
+                                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                </div>
+                                <div className="flex flex-col">
+                                    <p className="font-semibold text-sm uppercase text-black group-hover:underline decoration-1 underline-offset-4">
                                         {v.productName}
                                     </p>
-                                    <p className="text-sm font-medium mt-1 font-alexandria text-[#6D6D6D]">
+                                    <p className="text-sm font-medium mt-1 text-gray-500">
                                         R$ {v.price.toFixed(2).replace(".", ",")}
                                     </p>
                                 </div>
-                            ))}
-                        </div>
-                    )}
-                </section>
-            </div>
-        </>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
+        </main>
     )
 }
