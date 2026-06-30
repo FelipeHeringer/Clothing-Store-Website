@@ -55,7 +55,7 @@ public class AdminProductControllerAdapter {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest request) {
+    public ResponseEntity<ProductResponse> createProduct(@jakarta.validation.Valid @RequestBody ProductRequest request) {
         try {
             ProductBO product = productService.createProduct(request);
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -126,7 +126,7 @@ public class AdminProductControllerAdapter {
     }
 
     @PostMapping(value = "/images", consumes = "multipart/form-data")
-    public ResponseEntity<ProductImageResponse> uploadImages(@ModelAttribute ProductImagesRequest request) {
+    public ResponseEntity<ProductImageResponse> uploadImages(@jakarta.validation.Valid @ModelAttribute ProductImagesRequest request) {
         try {
             ProductImageRequestBO bo = ProductImageRequestMapper.toBO(request);
             List<ProductImageBO> productImages = imageServicePort.uploadProductImages(bo);

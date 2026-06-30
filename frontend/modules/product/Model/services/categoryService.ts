@@ -17,5 +17,18 @@ export const categoryService = {
         });
 
         return response.data.categories;
+    },
+
+    async createCategory(categoryName: string): Promise<Category> {
+        const token = tokenUtil.getAccessToken();
+        const response = await api.post('/admin/categories', 
+            { categoryName },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+        return response.data.categories[0];
     }
 }

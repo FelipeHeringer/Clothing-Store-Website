@@ -149,8 +149,8 @@ export function ProductCreateForm({ onSubmit, onCancel }: ProductCreateFormProps
             const product: Product = {...productResponse, images};
         
             onSubmit();
-        } catch (err) {
-            setError(err instanceof Error ? err.message : "Erro ao cadastrar produto.");
+        } catch (err: any) {
+            setError(err.response?.data?.message || err.message || "Erro ao cadastrar produto.");
         } finally {
             setIsSubmitting(false);
         }

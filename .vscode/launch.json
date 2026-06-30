@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ClothingStoreApplication",
+            "request": "launch",
+            "mainClass": "com.fhcs.clothing_store.ClothingStoreApplication",
+            "projectName": "clothing_store",
+            "env": {
+                "DATABASE_URL": "jdbc:mysql://localhost:3306/vertice_database",
+                "DATABASE_USERNAME": "root",
+                "DATABASE_PASSWORD": "PoiLkjmnb25@",
+                "JWT_SECRET_KEY": "WBTIuH52svWcaR8XKIsKO9vTKKLeOZ0+Mfy1M3Cd6iw=",
+                "ACCESS_TOKEN_EXPIRATION": "900000",
+                "REFRESH_TOKEN_EXPIRATION": "604800000",
+                "SERVER_PORT": 8080,
+                "CLOUDINARY_URL": "cloudinary://895561554758469:jGt2RmpygyaPJMyAQk5CqRk88vw@da6xpvbe3",
+                "CLOUDINARY_API_KEY": "895561554758469",
+                "CLOUDINARY_SECRET_KEY": "jGt2RmpygyaPJMyAQk5CqRk88vw",
+                "CLOUDINARY_CLOUD_NAME": "da6xpvbe3"
+            }
+        }
+    ]
+}
