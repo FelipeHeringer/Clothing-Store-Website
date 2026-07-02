@@ -42,7 +42,7 @@ public class Product {
     @Column(name = "descricao", length = 255, nullable = false)
     private String description;
 
-    @Column(name = "valor", nullable = false, columnDefinition = "DEFAULT 0.00")
+    @Column(name = "valor", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     @Column(name = "avaliacao")

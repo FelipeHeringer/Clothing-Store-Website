@@ -42,7 +42,7 @@ public class ProductImage {
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo")
+    @Column(name = "tipo", length = 20)
     private ImageType type;
 
     @Column(name = "posicao")

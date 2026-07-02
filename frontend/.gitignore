@@ -1,3 +1,7 @@
+# Environment variables
+.env.local
+.env.docker
+
 # Logs
 logs
 *.log

@@ -48,7 +48,7 @@ public class Order {
     @Builder.Default
     private OrderStatus status = OrderStatus.PENDING;
 
-    @Column(name = "valor_total", nullable = false)
+    @Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
     @Builder.Default
     private BigDecimal total = BigDecimal.ZERO;
 

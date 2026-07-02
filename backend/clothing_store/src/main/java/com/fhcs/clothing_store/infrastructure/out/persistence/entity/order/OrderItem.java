@@ -43,9 +43,9 @@ public class OrderItem {
     @Column(name = "quantidade", nullable = false)
     private Integer quantity;
 
-    @Column(name = "preco_unitario", nullable = false)
+    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
     private BigDecimal unitPrice;
 
-    @Column(name = "subtotal", nullable = false)
+    @Column(name = "subtotal", nullable = false, precision = 10, scale = 2)
     private BigDecimal subtotal;
 }

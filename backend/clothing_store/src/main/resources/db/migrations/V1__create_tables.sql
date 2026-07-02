@@ -22,9 +22,9 @@ CREATE TABLE IF NOT EXISTS `enderecos` (
     `id_cep` INTEGER NOT NULL,
     `id_cidade` INTEGER NOT NULL,
     `id_estado` INTEGER NOT NULL,
-    `nome_rua` VARCHAR(255) NOT NULL,
+    `nome_rua` VARCHAR(150) NOT NULL,
     `numero` INTEGER NOT NULL,
-    `complemento` VARCHAR(255),
+    `complemento` VARCHAR(150),
     PRIMARY KEY(`id`)
 );
 
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS `produtos` (
     `id_categoria` INTEGER NOT NULL,
     `nome` VARCHAR(150) NOT NULL,
     `descricao` VARCHAR(255) NOT NULL,
-    `valor` DECIMAL(4,2) NOT NULL,
-    `avaliacao` TINYINT NOT NULL,
+    `valor` DECIMAL(10,2) NOT NULL,
+    `avaliacao` INTEGER NOT NULL,
     PRIMARY KEY(`id`)
 );
 
@@ -63,25 +63,25 @@ CREATE TABLE IF NOT EXISTS `compras` (
 
 CREATE TABLE IF NOT EXISTS `categorias` (
     `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    `nome` VARCHAR(255) NOT NULL UNIQUE,
+    `nome` VARCHAR(150) NOT NULL UNIQUE,
     PRIMARY KEY(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `CEP` (
     `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    `numero_cep` INTEGER NOT NULL UNIQUE,
+    `numero_cep` VARCHAR(255) NOT NULL UNIQUE,
     PRIMARY KEY(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `cidades` (
     `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    `nome_cidade` VARCHAR(255) NOT NULL,
+    `nome_cidade` VARCHAR(100) NOT NULL,
     PRIMARY KEY(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `estados` (
     `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    `nome_estado` VARCHAR(255) NOT NULL UNIQUE,
+    `nome_estado` VARCHAR(100) NOT NULL UNIQUE,
     PRIMARY KEY(`id`)
 );
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `produtos_variacoes` (
 
 CREATE TABLE IF NOT EXISTS `tamanhos` (
     `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
-    `tamanho` CHAR(2) NOT NULL UNIQUE,
+    `tamanho` VARCHAR(2) NOT NULL UNIQUE,
     PRIMARY KEY(`id`)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `enderecos_pessoas` (
     `id` INTEGER NOT NULL AUTO_INCREMENT UNIQUE,
     `id_endereco` INTEGER NOT NULL,
     `id_pessoa` INTEGER NOT NULL,
-    `descricao` VARCHAR(255) NOT NULL DEFAULT 'Casa',
+    `descricao` VARCHAR(200) NOT NULL DEFAULT 'Casa',
     PRIMARY KEY(`id`)
 );
 

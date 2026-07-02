@@ -43,6 +43,6 @@ public class CartItem {
     @Column(name = "quantidade", nullable = false)
     private Integer quantity;
 
-    @Column(name = "preco_unitario", nullable = false)
+    @Column(name = "preco_unitario", nullable = false, precision = 10, scale = 2)
     private BigDecimal unitPrice;
 }

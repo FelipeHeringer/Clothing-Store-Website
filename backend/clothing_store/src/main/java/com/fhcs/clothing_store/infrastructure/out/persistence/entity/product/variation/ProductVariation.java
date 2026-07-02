@@ -40,7 +40,7 @@ public class ProductVariation {
     @JoinColumn(name = "id_tamanho", referencedColumnName = "id")
     private Size size;
 
-    @Column(name = "codigo_sku")
+    @Column(name = "codigo_sku", length = 50)
     private String skuCode;
 
     @Column(name = "estoque", nullable = false)

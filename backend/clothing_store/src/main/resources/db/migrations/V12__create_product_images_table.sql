@@ -4,7 +4,7 @@ CREATE TABLE imagens_produtos (
   id_variacao INTEGER       NULL,
   url         TEXT          NOT NULL,
   tipo        VARCHAR(20)   NOT NULL CHECK (tipo IN ('MAIN', 'CAROUSEL')),
-  posicao     SMALLINT      NOT NULL DEFAULT 0,
+  posicao     INTEGER       NOT NULL DEFAULT 0,
   criado_em   TIMESTAMP     NOT NULL DEFAULT now(),
 
   PRIMARY KEY (id),

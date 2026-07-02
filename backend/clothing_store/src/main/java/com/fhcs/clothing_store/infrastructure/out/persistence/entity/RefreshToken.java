@@ -30,7 +30,7 @@ public class RefreshToken {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "token", nullable = false)
+    @Column(name = "token", nullable = false, length = 500)
     private String token;
 
     @ManyToOne

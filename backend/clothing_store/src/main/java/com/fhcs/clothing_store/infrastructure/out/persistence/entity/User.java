@@ -49,7 +49,7 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-    @Column(name = "ativo", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    @Column(name = "is_ativo", nullable = false)
     private boolean isActive = true;
     
 }
